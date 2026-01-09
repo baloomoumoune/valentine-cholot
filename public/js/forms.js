@@ -1,13 +1,11 @@
-// Configuration EmailJS - À REMPLACER avec vos propres identifiants
-// Pour obtenir vos identifiants : https://www.emailjs.com/
-const EMAILJS_PUBLIC_KEY = 'VOTRE_CLE_PUBLIQUE_ICI';
-const EMAILJS_SERVICE_ID = 'VOTRE_SERVICE_ID_ICI';
-const EMAILJS_CONTACT_TEMPLATE_ID = 'VOTRE_TEMPLATE_CONTACT_ICI';
-const EMAILJS_DEVIS_TEMPLATE_ID = 'VOTRE_TEMPLATE_DEVIS_ICI';
+// Configuration EmailJS
+const EMAILJS_PUBLIC_KEY = '3Xg5g4DwqrQ8bG5Cs';
+const EMAILJS_SERVICE_ID = 'service_ln1kr8i';
+const EMAILJS_CONTACT_TEMPLATE_ID = 'template_cagvbhw';
+const EMAILJS_DEVIS_TEMPLATE_ID = 'template_s1c7ykt';
 
 // Initialisation EmailJS
-// Décommentez cette ligne une fois que vous avez vos identifiants
-// emailjs.init(EMAILJS_PUBLIC_KEY);
+emailjs.init(EMAILJS_PUBLIC_KEY);
 
 // Gestion du formulaire de contact
 const contactForm = document.getElementById('contactForm');
@@ -30,16 +28,10 @@ if (contactForm) {
         };
 
         try {
-            // OPTION 1: Avec EmailJS (décommentez quand vous aurez vos identifiants)
-            /*
+            // Envoi avec EmailJS
             await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONTACT_TEMPLATE_ID, formData);
             showSuccessMessage('Votre message a été envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
             this.reset();
-            */
-
-            // OPTION 2: Sans EmailJS (temporaire pour démonstration)
-            console.log('Données du formulaire de contact:', formData);
-            showSuccessMessage('Formulaire simulé ! Configurez EmailJS pour l\'envoi réel des messages.');
             
         } catch (error) {
             console.error('Erreur:', error);
@@ -93,16 +85,10 @@ if (devisForm) {
         }
 
         try {
-            // OPTION 1: Avec EmailJS (décommentez quand vous aurez vos identifiants)
-            /*
+            // Envoi avec EmailJS
             await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_DEVIS_TEMPLATE_ID, formData);
             showSuccessMessage('Votre demande de devis a été envoyée avec succès ! Je vous répondrai sous 24-48h avec une proposition personnalisée.');
             this.reset();
-            */
-
-            // OPTION 2: Sans EmailJS (temporaire pour démonstration)
-            console.log('Données du formulaire de devis:', formData);
-            showSuccessMessage('Formulaire simulé ! Configurez EmailJS pour l\'envoi réel des demandes de devis.');
             
         } catch (error) {
             console.error('Erreur:', error);
