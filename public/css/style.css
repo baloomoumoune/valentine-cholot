@@ -393,52 +393,94 @@ footer {
 /* Devis form */
 .form-section {
     margin-bottom: 2.5rem;
-    padding: 2rem;
+    padding: 2.5rem;
     background-color: var(--white);
-    border-radius: 10px;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .form-section h3 {
     color: var(--secondary-color);
     margin-bottom: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-form input:not([type="checkbox"]),
+.contact-form textarea,
+.contact-form select {
+    margin-bottom: 1.5rem;
 }
 
 .form-help {
     font-size: 0.9rem;
     color: var(--gray);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .checkbox-group {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1rem;
 }
 
 .checkbox-label {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 1rem;
     cursor: pointer;
-    padding: 0.8rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: var(--light-bg);
+    border: 2px solid transparent;
 }
 
 .checkbox-label:hover {
-    background-color: var(--light-bg);
+    background-color: #f5e8de;
+    border-color: var(--primary-color);
 }
 
 .checkbox-label input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
     cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    background-color: var(--white);
+    margin: 0;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-label input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.checkbox-label span {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
 }
 
 /* Navigation CTA */
