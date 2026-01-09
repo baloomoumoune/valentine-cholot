@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Demande de devis - Valentine Cholot">
+    <meta name="theme-color" content="#FEF5EA">
+    <title>Demande de devis | Valentine Cholot</title>
+    <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Valentine Cholot</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="devis.html" class="nav-cta active">Demande de devis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Demande de devis</h1>
+                <p>Obtenez un devis personnalisé pour votre projet</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="devis-intro">
+                    <h2 style="text-align: center; margin-bottom: 1rem;">Parlez-moi de votre projet</h2>
+                    <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; color: var(--gray);">
+                        Complétez ce formulaire pour recevoir un devis détaillé et personnalisé. 
+                        Je vous répondrai dans les 24-48h avec une proposition adaptée à vos besoins.
+                    </p>
+                </div>
+
+                <form class="contact-form devis-form" id="devisForm">
+                    <!-- Informations personnelles -->
+                    <div class="form-section">
+                        <h3>Vos informations</h3>
+                        
+                        <div class="form-row">
+                            <input type="text" name="firstName" placeholder="Prénom *" required>
+                            <input type="text" name="lastName" placeholder="Nom *" required>
+                        </div>
+
+                        <input type="email" name="email" placeholder="Email *" required>
+                        <input type="tel" name="phone" placeholder="Téléphone *" required>
+                        <input type="text" name="company" placeholder="Entreprise / Organisation">
+                    </div>
+
+                    <!-- Type de service -->
+                    <div class="form-section">
+                        <h3>Type de service souhaité</h3>
+                        <p class="form-help">Sélectionnez un ou plusieurs services</p>
+                        
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="service" value="Stratégie de communication">
+                                <span>Stratégie de communication</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="service" value="Marketing digital">
+                                <span>Marketing digital</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="service" value="Création de contenu">
+                                <span>Création de contenu</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="service" value="Analyse & reporting">
+                                <span>Analyse & reporting</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="service" value="Identité de marque">
+                                <span>Identité de marque</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="service" value="Email marketing">
+                                <span>Email marketing</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="service" value="Autre">
+                                <span>Autre (précisez dans le message)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Détails du projet -->
+                    <div class="form-section">
+                        <h3>Détails du projet</h3>
+                        
+                        <select name="budget" required>
+                            <option value="">Budget estimé *</option>
+                            <option value="Moins de 500€">Moins de 500€</option>
+                            <option value="500€ - 1000€">500€ - 1000€</option>
+                            <option value="1000€ - 2500€">1000€ - 2500€</option>
+                            <option value="2500€ - 5000€">2500€ - 5000€</option>
+                            <option value="Plus de 5000€">Plus de 5000€</option>
+                            <option value="À définir">À définir</option>
+                        </select>
+
+                        <select name="deadline" required>
+                            <option value="">Délai souhaité *</option>
+                            <option value="Urgent (moins d'1 mois)">Urgent (moins d'1 mois)</option>
+                            <option value="1 à 2 mois">1 à 2 mois</option>
+                            <option value="2 à 3 mois">2 à 3 mois</option>
+                            <option value="Plus de 3 mois">Plus de 3 mois</option>
+                            <option value="Flexible">Flexible</option>
+                        </select>
+
+                        <select name="projectType">
+                            <option value="">Type de projet</option>
+                            <option value="Projet ponctuel">Projet ponctuel</option>
+                            <option value="Mission récurrente">Mission récurrente (mensuel)</option>
+                            <option value="Accompagnement long terme">Accompagnement long terme</option>
+                        </select>
+
+                        <textarea name="projectDescription" placeholder="Description détaillée de votre projet *" rows="8" required></textarea>
+                        
+                        <p class="form-help">
+                            Plus votre description sera détaillée, plus mon devis sera précis !
+                        </p>
+                    </div>
+
+                    <!-- Objectifs -->
+                    <div class="form-section">
+                        <h3>Vos objectifs</h3>
+                        <textarea name="objectives" placeholder="Quels sont vos objectifs principaux ? (ex: augmenter la visibilité, générer des leads, fidéliser...)" rows="4"></textarea>
+                    </div>
+
+                    <!-- Informations complémentaires -->
+                    <div class="form-section">
+                        <h3>Informations complémentaires</h3>
+                        <textarea name="additionalInfo" placeholder="Autres informations utiles (public cible, concurrents, inspirations...)" rows="4"></textarea>
+                    </div>
+
+                    <!-- Comment nous avez-vous connu -->
+                    <div class="form-section">
+                        <select name="howDidYouHear">
+                            <option value="">Comment avez-vous entendu parler de moi ?</option>
+                            <option value="Recherche Google">Recherche Google</option>
+                            <option value="Réseaux sociaux">Réseaux sociaux</option>
+                            <option value="Recommandation">Recommandation</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Envoyer ma demande de devis</button>
+
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray); text-align: center;">
+                        * Champs obligatoires<br>
+                        Vos données sont confidentielles et ne seront utilisées que pour répondre à votre demande.
+                    </p>
+                </form>
+
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background-color: var(--light-bg); border-radius: 10px;">
+                    <h3 style="margin-bottom: 1rem;">Besoin d'aide ?</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Vous avez des questions avant de demander un devis ? Contactez-moi directement !
+                    </p>
+                    <a href="contact.html" class="cta-button" style="background-color: var(--secondary-color);">Me contacter</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Valentine Cholot</h3>
+                    <p>Chargée de communication</p>
+                </div>
+                <div class="footer-contact">
+                    <p>📞 06 37 83 44 37</p>
+                    <p>✉️ valentine.cholot@gmail.com</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+                </div>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.7;">&copy; 2026 Valentine Cholot. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="public/js/script.js"></script>
+    <script src="public/js/forms.js"></script>
+</body>
+</html>
