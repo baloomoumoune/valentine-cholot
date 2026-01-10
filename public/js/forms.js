@@ -78,11 +78,11 @@
 
         // Récupération des données du formulaire avec les bons noms
         const templateParams = {
-            name: this.name.value.trim(),
-            email: this.email.value.trim(),
-            phone: this.phone.value.trim() || 'Non renseigné',
-            subject: this.subject.value.trim(),
-            message: this.message.value.trim()
+            name: this.elements['name'].value.trim(),
+            email: this.elements['email'].value.trim(),
+            phone: this.elements['phone'].value.trim() || 'Non renseigné',
+            subject: this.elements['subject'].value.trim(),
+            message: this.elements['message'].value.trim()
         };
 
         try {
