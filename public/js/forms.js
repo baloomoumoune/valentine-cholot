@@ -68,6 +68,23 @@
     // Gestion du formulaire de contact
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
+        // Stockage temporaire des valeurs
+        const formValues = {
+            name: '',
+            email: '',
+            phone: '',
+            subject: '',
+            message: ''
+        };
+
+        // Écouter les changements dans les champs en temps réel
+        contactForm.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('input', function() {
+                formValues[this.name] = this.value;
+                console.log('📝 Valeur mise à jour:', this.name, '=', this.value);
+            });
+        });
+
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -77,36 +94,16 @@
         submitButton.textContent = 'Envoi en cours...';
         submitButton.disabled = true;
 
-        // Capture immédiate des valeurs AVANT toute manipulation
-        const nameInput = document.querySelector('input[name="name"]');
-        const emailInput = document.querySelector('input[name="email"]');
-        const phoneInput = document.querySelector('input[name="phone"]');
-        const subjectInput = document.querySelector('input[name="subject"]');
-        const messageInput = document.querySelector('textarea[name="message"]');
-
-        console.log('🔍 Éléments trouvés:', {
-            nameInput: nameInput,
-            emailInput: emailInput,
-            phoneInput: phoneInput,
-            subjectInput: subjectInput,
-            messageInput: messageInput
-        });
-
-        console.log('📝 Valeurs brutes:', {
-            name: nameInput?.value,
-            email: emailInput?.value,
-            phone: phoneInput?.value,
-            subject: subjectInput?.value,
-            message: messageInput?.value
-        });
-
+        // Utiliser les valeurs stockées
         const templateParams = {
-            name: nameInput ? nameInput.value : '',
-            email: emailInput ? emailInput.value : '',
-            phone: phoneInput && phoneInput.value ? phoneInput.value : 'Non renseigné',
-            subject: subjectInput ? subjectInput.value : '',
-            message: messageInput ? messageInput.value : ''
+            name: formValues.name || '',
+            email: formValues.email || '',
+            phone: formValues.phone || 'Non renseigné',
+            subject: formValues.subject || '',
+            message: formValues.message || ''
         };
+
+        console.log('📦 Valeurs depuis le stockage:', formValues);
 
         try {
             console.log('Envoi du formulaire de contact...');
