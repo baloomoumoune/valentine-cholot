@@ -70,20 +70,26 @@
     if (contactForm) {
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
+            e.stopPropagation();
         
         const submitButton = this.querySelector('button[type="submit"]');
         const originalButtonText = submitButton.textContent;
         submitButton.textContent = 'Envoi en cours...';
         submitButton.disabled = true;
 
-        // Récupération des données du formulaire avec FormData
-        const formData = new FormData(this);
+        // Capture immédiate des valeurs AVANT toute manipulation
+        const nameInput = document.querySelector('input[name="name"]');
+        const emailInput = document.querySelector('input[name="email"]');
+        const phoneInput = document.querySelector('input[name="phone"]');
+        const subjectInput = document.querySelector('input[name="subject"]');
+        const messageInput = document.querySelector('textarea[name="message"]');
+
         const templateParams = {
-            name: formData.get('name') || '',
-            email: formData.get('email') || '',
-            phone: formData.get('phone') || 'Non renseigné',
-            subject: formData.get('subject') || '',
-            message: formData.get('message') || ''
+            name: nameInput ? nameInput.value : '',
+            email: emailInput ? emailInput.value : '',
+            phone: phoneInput && phoneInput.value ? phoneInput.value : 'Non renseigné',
+            subject: subjectInput ? subjectInput.value : '',
+            message: messageInput ? messageInput.value : ''
         };
 
         try {
@@ -91,7 +97,6 @@
             console.log('Service ID:', EMAILJS_SERVICE_ID);
             console.log('Template ID:', EMAILJS_CONTACT_TEMPLATE_ID);
             console.log('Données à envoyer:', templateParams);
-            console.log('FormData brute:', Array.from(formData.entries()));
             
             // Envoi avec EmailJS en utilisant les paramètres du template
             const response = await emailjs.send(
