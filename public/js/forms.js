@@ -1,17 +1,75 @@
-// Configuration EmailJS
-const EMAILJS_PUBLIC_KEY = '3Xg5g4DwqrQ8bG5Cs';
-const EMAILJS_SERVICE_ID = 'service_ln1kr8i';
-const EMAILJS_CONTACT_TEMPLATE_ID = 'template_cagvbhw';
-const EMAILJS_DEVIS_TEMPLATE_ID = 'template_s1c7ykt';
+// Encapsulation pour éviter les conflits de variables globales
+(function() {
+    'use strict';
+    
+    // Configuration EmailJS
+    const EMAILJS_PUBLIC_KEY = '3Xg5g4DwqrQ8bG5Cs';
+    const EMAILJS_SERVICE_ID = 'service_ln1kr8i';
+    const EMAILJS_CONTACT_TEMPLATE_ID = 'template_cagvbhw';
+    const EMAILJS_DEVIS_TEMPLATE_ID = 'template_s1c7ykt';
 
-// Initialisation EmailJS
-emailjs.init(EMAILJS_PUBLIC_KEY);
+    // Initialisation EmailJS
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    } else {
+        console.error('EmailJS n\'est pas chargé !');
+    }
 
-// Gestion du formulaire de contact
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
+    // Fonction pour afficher un message de succès
+    function showSuccessMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+        `;
+        messageDiv.textContent = message;
+        document.body.appendChild(messageDiv);
+
+        setTimeout(() => {
+            messageDiv.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => messageDiv.remove(), 300);
+        }, 5000);
+    }
+
+    // Fonction pour afficher un message d'erreur
+    function showErrorMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f44336;
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+        `;
+        messageDiv.textContent = message;
+        document.body.appendChild(messageDiv);
+
+        setTimeout(() => {
+            messageDiv.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => messageDiv.remove(), 300);
+        }, 5000);
+    }
+
+    // Gestion du formulaire de contact
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
         
         const submitButton = this.querySelector('button[type="submit"]');
         const originalButtonText = submitButton.textContent;
@@ -116,58 +174,8 @@ if (devisForm) {
     });
 }
 
-// Fonction pour afficher un message de succès
-function showSuccessMessage(message) {
-    const messageDiv = document.createElement('div');
-    messageDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background-color: #4CAF50;
-        color: white;
-        padding: 1.5rem 2rem;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        z-index: 10000;
-        max-width: 400px;
-        animation: slideIn 0.3s ease;
-    `;
-    messageDiv.textContent = message;
-    document.body.appendChild(messageDiv);
-
-    setTimeout(() => {
-        messageDiv.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => messageDiv.remove(), 300);
-    }, 5000);
-}
-
-// Fonction pour afficher un message d'erreur
-function showErrorMessage(message) {
-    const messageDiv = document.createElement('div');
-    messageDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background-color: #f44336;
-        color: white;
-        padding: 1.5rem 2rem;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        z-index: 10000;
-        max-width: 400px;
-        animation: slideIn 0.3s ease;
-    `;
-    messageDiv.textContent = message;
-    document.body.appendChild(messageDiv);
-
-    setTimeout(() => {
-        messageDiv.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => messageDiv.remove(), 300);
-    }, 5000);
-}
-
-// Animations pour les messages
-const style = document.createElement('style');
+    // Animations pour les messages
+    const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
         from {
@@ -190,6 +198,8 @@ style.textContent = `
         }
     }
 `;
-document.head.appendChild(style);
+    document.head.appendChild(style);
 
-console.log('📧 Formulaires prêts ! N\'oubliez pas de configurer EmailJS pour l\'envoi réel des emails.');
+    console.log('📧 Formulaires EmailJS initialisés et prêts !');
+
+})(); // Fin de l'encapsulation IIFE
