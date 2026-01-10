@@ -76,24 +76,29 @@
         submitButton.textContent = 'Envoi en cours...';
         submitButton.disabled = true;
 
-        // Récupération des données du formulaire
-        const formData = {
-            name: this.name.value,
-            email: this.email.value,
-            phone: this.phone.value || 'Non renseigné',
-            subject: this.subject.value,
-            message: this.message.value
+        // Récupération des données du formulaire avec les bons noms
+        const templateParams = {
+            name: this.name.value.trim(),
+            email: this.email.value.trim(),
+            phone: this.phone.value.trim() || 'Non renseigné',
+            subject: this.subject.value.trim(),
+            message: this.message.value.trim()
         };
 
         try {
             console.log('Envoi du formulaire de contact...');
             console.log('Service ID:', EMAILJS_SERVICE_ID);
             console.log('Template ID:', EMAILJS_CONTACT_TEMPLATE_ID);
-            console.log('Données:', formData);
+            console.log('Données à envoyer:', templateParams);
             
-            // Envoi avec EmailJS
-            const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONTACT_TEMPLATE_ID, formData);
+            // Envoi avec EmailJS en utilisant les paramètres du template
+            const response = await emailjs.send(
+                EMAILJS_SERVICE_ID, 
+                EMAILJS_CONTACT_TEMPLATE_ID, 
+                templateParams
+            );
             console.log('Réponse EmailJS:', response);
+            console.log('Email envoyé avec succès !');
             
             showSuccessMessage('Votre message a été envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
             this.reset();
