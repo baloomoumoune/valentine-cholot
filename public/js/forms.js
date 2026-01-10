@@ -81,7 +81,6 @@
         contactForm.querySelectorAll('input, textarea').forEach(input => {
             input.addEventListener('input', function() {
                 formValues[this.name] = this.value;
-                console.log('📝 Valeur mise à jour:', this.name, '=', this.value);
             });
         });
 
@@ -103,13 +102,7 @@
             message: formValues.message || ''
         };
 
-        console.log('📦 Valeurs depuis le stockage:', formValues);
-
         try {
-            console.log('Envoi du formulaire de contact...');
-            console.log('Service ID:', EMAILJS_SERVICE_ID);
-            console.log('Template ID:', EMAILJS_CONTACT_TEMPLATE_ID);
-            console.log('Données à envoyer:', templateParams);
             
             // Envoi avec EmailJS en utilisant les paramètres du template
             const response = await emailjs.send(
@@ -117,15 +110,13 @@
                 EMAILJS_CONTACT_TEMPLATE_ID, 
                 templateParams
             );
-            console.log('Réponse EmailJS:', response);
-            console.log('Email envoyé avec succès !');
             
             showSuccessMessage('Votre message a été envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
             this.reset();
+            // Réinitialiser aussi le stockage
+            Object.keys(formValues).forEach(key => formValues[key] = '');
             
         } catch (error) {
-            console.error('Erreur complète:', error);
-            console.error('Message d\'erreur:', error.text || error.message);
             showErrorMessage('Erreur: ' + (error.text || error.message || 'Problème d\'envoi. Contactez-moi directement par email.'));
         } finally {
             submitButton.textContent = originalButtonText;
@@ -137,60 +128,95 @@
 // Gestion du formulaire de devis
 const devisForm = document.getElementById('devisForm');
 if (devisForm) {
+    // Stockage temporaire des valeurs
+    const devisValues = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        company: '',
+        services: [],
+        budget: '',
+        deadline: '',
+        projectType: '',
+        projectDescription: '',
+        objectives: '',
+        additionalInfo: '',
+        howDidYouHear: ''
+    };
+
+    // Écouter les changements dans les champs texte en temps réel
+    devisForm.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea, select').forEach(input => {
+        input.addEventListener('input', function() {
+            devisValues[this.name] = this.value;
+        });
+        input.addEventListener('change', function() {
+            devisValues[this.name] = this.value;
+        });
+    });
+
+    // Écouter les changements dans les checkboxes des services
+    devisForm.querySelectorAll('input[name="service"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            devisValues.services = Array.from(devisForm.querySelectorAll('input[name="service"]:checked'))
+                .map(cb => cb.value);
+        });
+    });
+
     devisForm.addEventListener('submit', async function(e) {
         e.preventDefault();
+        e.stopPropagation();
         
         const submitButton = this.querySelector('button[type="submit"]');
         const originalButtonText = submitButton.textContent;
         submitButton.textContent = 'Envoi en cours...';
         submitButton.disabled = true;
 
-        // Récupération des services sélectionnés
-        const services = Array.from(this.querySelectorAll('input[name="service"]:checked'))
-            .map(checkbox => checkbox.value)
-            .join(', ');
-
-        // Récupération de toutes les données du formulaire
-        const formData = {
-            firstName: this.firstName.value,
-            lastName: this.lastName.value,
-            email: this.email.value,
-            phone: this.phone.value,
-            company: this.company.value || 'Non renseigné',
-            services: services || 'Aucun service sélectionné',
-            budget: this.budget.value,
-            deadline: this.deadline.value,
-            projectType: this.projectType.value || 'Non précisé',
-            projectDescription: this.projectDescription.value,
-            objectives: this.objectives.value || 'Non renseigné',
-            additionalInfo: this.additionalInfo.value || 'Non renseigné',
-            howDidYouHear: this.howDidYouHear.value || 'Non renseigné'
-        };
+        // Récupération des services sélectionnés depuis le stockage
+        const servicesString = devisValues.services.length > 0 ? devisValues.services.join(', ') : 'Aucun service sélectionné';
 
         // Validation des services
-        if (!services) {
+        if (devisValues.services.length === 0) {
             showErrorMessage('Veuillez sélectionner au moins un service.');
             submitButton.textContent = originalButtonText;
             submitButton.disabled = false;
             return;
         }
 
+        // Utiliser les valeurs stockées
+        const templateParams = {
+            firstName: devisValues.firstName || '',
+            lastName: devisValues.lastName || '',
+            email: devisValues.email || '',
+            phone: devisValues.phone || '',
+            company: devisValues.company || 'Non renseigné',
+            services: servicesString,
+            budget: devisValues.budget || '',
+            deadline: devisValues.deadline || '',
+            projectType: devisValues.projectType || 'Non précisé',
+            projectDescription: devisValues.projectDescription || '',
+            objectives: devisValues.objectives || 'Non renseigné',
+            additionalInfo: devisValues.additionalInfo || 'Non renseigné',
+            howDidYouHear: devisValues.howDidYouHear || 'Non renseigné'
+        };
+
         try {
-            console.log('Envoi du formulaire de devis...');
-            console.log('Service ID:', EMAILJS_SERVICE_ID);
-            console.log('Template ID:', EMAILJS_DEVIS_TEMPLATE_ID);
-            console.log('Données:', formData);
             
             // Envoi avec EmailJS
-            const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_DEVIS_TEMPLATE_ID, formData);
-            console.log('Réponse EmailJS:', response);
+            const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_DEVIS_TEMPLATE_ID, templateParams);
             
             showSuccessMessage('Votre demande de devis a été envoyée avec succès ! Je vous répondrai sous 24-48h avec une proposition personnalisée.');
             this.reset();
+            // Réinitialiser le stockage
+            Object.keys(devisValues).forEach(key => {
+                if (key === 'services') {
+                    devisValues[key] = [];
+                } else {
+                    devisValues[key] = '';
+                }
+            });
             
         } catch (error) {
-            console.error('Erreur complète:', error);
-            console.error('Message d\'erreur:', error.text || error.message);
             showErrorMessage('Erreur: ' + (error.text || error.message || 'Problème d\'envoi. Contactez-moi directement.'));
         } finally {
             submitButton.textContent = originalButtonText;
