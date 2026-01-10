@@ -28,14 +28,22 @@ if (contactForm) {
         };
 
         try {
+            console.log('Envoi du formulaire de contact...');
+            console.log('Service ID:', EMAILJS_SERVICE_ID);
+            console.log('Template ID:', EMAILJS_CONTACT_TEMPLATE_ID);
+            console.log('Données:', formData);
+            
             // Envoi avec EmailJS
-            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONTACT_TEMPLATE_ID, formData);
+            const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONTACT_TEMPLATE_ID, formData);
+            console.log('Réponse EmailJS:', response);
+            
             showSuccessMessage('Votre message a été envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
             this.reset();
             
         } catch (error) {
-            console.error('Erreur:', error);
-            showErrorMessage('Une erreur est survenue. Veuillez réessayer ou me contacter directement par email.');
+            console.error('Erreur complète:', error);
+            console.error('Message d\'erreur:', error.text || error.message);
+            showErrorMessage('Erreur: ' + (error.text || error.message || 'Problème d\'envoi. Contactez-moi directement par email.'));
         } finally {
             submitButton.textContent = originalButtonText;
             submitButton.disabled = false;
@@ -85,14 +93,22 @@ if (devisForm) {
         }
 
         try {
+            console.log('Envoi du formulaire de devis...');
+            console.log('Service ID:', EMAILJS_SERVICE_ID);
+            console.log('Template ID:', EMAILJS_DEVIS_TEMPLATE_ID);
+            console.log('Données:', formData);
+            
             // Envoi avec EmailJS
-            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_DEVIS_TEMPLATE_ID, formData);
+            const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_DEVIS_TEMPLATE_ID, formData);
+            console.log('Réponse EmailJS:', response);
+            
             showSuccessMessage('Votre demande de devis a été envoyée avec succès ! Je vous répondrai sous 24-48h avec une proposition personnalisée.');
             this.reset();
             
         } catch (error) {
-            console.error('Erreur:', error);
-            showErrorMessage('Une erreur est survenue. Veuillez réessayer ou me contacter directement.');
+            console.error('Erreur complète:', error);
+            console.error('Message d\'erreur:', error.text || error.message);
+            showErrorMessage('Erreur: ' + (error.text || error.message || 'Problème d\'envoi. Contactez-moi directement.'));
         } finally {
             submitButton.textContent = originalButtonText;
             submitButton.disabled = false;
