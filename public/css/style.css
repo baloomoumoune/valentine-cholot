@@ -7,6 +7,7 @@
 
 /* Import des polices Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap');
 
 :root {
     --primary-color: #845656;
@@ -25,6 +26,13 @@ body {
     background-color: var(--light-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Style spécial pour le nom Valentine Cholot */
+.brand-name {
+    font-family: 'Cinzel Decorative', serif !important;
+    font-weight: 900 !important;
+    letter-spacing: 1px !important;
 }
 
 /* Amélioration du touch sur mobile */
@@ -72,8 +80,9 @@ nav {
 .logo h1 {
     color: var(--secondary-color);
     font-size: 1.8rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    font-family: 'Cinzel Decorative', serif;
 }
 
 /* Menu burger - caché par défaut sur desktop */
@@ -462,13 +471,18 @@ footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
+}
+
+.form-row input {
+    margin-bottom: 0 !important;
 }
 
 .contact-form input:not([type="checkbox"]),
 .contact-form textarea,
 .contact-form select {
     margin-bottom: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-help {
@@ -734,23 +748,32 @@ footer {
 
     .form-section {
         padding: 1.5rem;
+        margin-bottom: 1.5rem;
     }
 
     .form-row {
         grid-template-columns: 1fr;
-        gap: 0.8rem;
+        gap: 1.5rem;
+        margin-bottom: 0;
+    }
+
+    .form-row input {
+        margin-bottom: 1.5rem !important;
     }
 
     .contact-form input,
     .contact-form textarea,
     .contact-form select {
-        padding: 0.9rem;
+        padding: 1rem;
         font-size: 16px; /* Empêche le zoom sur iOS */
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .contact-form button {
-        padding: 1rem;
+        padding: 1.1rem;
         font-size: 1rem;
+        width: 100%;
     }
 
     .cta-button {
