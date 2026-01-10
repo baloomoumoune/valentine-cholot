@@ -1,3 +1,42 @@
+// Menu burger mobile
+const burgerMenu = document.querySelector('.burger-menu');
+const navLinks = document.querySelector('.nav-links');
+const mobileOverlay = document.querySelector('.mobile-overlay');
+const navLinksItems = document.querySelectorAll('.nav-links a');
+
+function toggleMenu() {
+    burgerMenu.classList.toggle('active');
+    navLinks.classList.toggle('active');
+    mobileOverlay.classList.toggle('active');
+    burgerMenu.setAttribute('aria-expanded', 
+        burgerMenu.classList.contains('active') ? 'true' : 'false'
+    );
+    
+    // Empêcher le scroll du body quand le menu est ouvert
+    document.body.style.overflow = burgerMenu.classList.contains('active') ? 'hidden' : '';
+}
+
+function closeMenu() {
+    burgerMenu.classList.remove('active');
+    navLinks.classList.remove('active');
+    mobileOverlay.classList.remove('active');
+    burgerMenu.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+}
+
+if (burgerMenu) {
+    burgerMenu.addEventListener('click', toggleMenu);
+}
+
+if (mobileOverlay) {
+    mobileOverlay.addEventListener('click', closeMenu);
+}
+
+// Fermer le menu quand on clique sur un lien
+navLinksItems.forEach(link => {
+    link.addEventListener('click', closeMenu);
+});
+
 // Smooth scrolling pour les liens de navigation
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
