@@ -84,6 +84,22 @@
         const subjectInput = document.querySelector('input[name="subject"]');
         const messageInput = document.querySelector('textarea[name="message"]');
 
+        console.log('🔍 Éléments trouvés:', {
+            nameInput: nameInput,
+            emailInput: emailInput,
+            phoneInput: phoneInput,
+            subjectInput: subjectInput,
+            messageInput: messageInput
+        });
+
+        console.log('📝 Valeurs brutes:', {
+            name: nameInput?.value,
+            email: emailInput?.value,
+            phone: phoneInput?.value,
+            subject: subjectInput?.value,
+            message: messageInput?.value
+        });
+
         const templateParams = {
             name: nameInput ? nameInput.value : '',
             email: emailInput ? emailInput.value : '',
