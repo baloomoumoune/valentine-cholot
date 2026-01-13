@@ -63,6 +63,15 @@ input, textarea, select {
     appearance: none;
 }
 
+/* Fix pour les select sur mobile */
+select {
+    font-size: 16px; /* Évite le zoom automatique sur iOS */
+    padding-right: 2.5rem; /* Espace pour la flèche */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -481,6 +490,7 @@ footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-row input {
@@ -872,6 +882,17 @@ footer {
 
     .nav-links a {
         font-size: 0.95rem;
+    }
+
+    /* Amélioration des select sur petits écrans */
+    select {
+        font-size: 14px;
+        padding: 0.9rem;
+        padding-right: 2.5rem;
+    }
+    
+    select option {
+        font-size: 14px;
     }
 }
 

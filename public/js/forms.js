@@ -18,24 +18,30 @@
     // Fonction pour afficher un message de succès
     function showSuccessMessage(message) {
         const messageDiv = document.createElement('div');
+        messageDiv.className = 'success-message';
         messageDiv.style.cssText = `
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background-color: #4CAF50;
             color: white;
-            padding: 1.5rem 2rem;
+            padding: 1rem 1.5rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             z-index: 10000;
-            max-width: 400px;
-            animation: slideIn 0.3s ease;
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            animation: slideInDown 0.3s ease;
         `;
         messageDiv.textContent = message;
         document.body.appendChild(messageDiv);
 
         setTimeout(() => {
-            messageDiv.style.animation = 'slideOut 0.3s ease';
+            messageDiv.style.animation = 'slideOutUp 0.3s ease';
             setTimeout(() => messageDiv.remove(), 300);
         }, 5000);
     }
@@ -43,24 +49,30 @@
     // Fonction pour afficher un message d'erreur
     function showErrorMessage(message) {
         const messageDiv = document.createElement('div');
+        messageDiv.className = 'error-message';
         messageDiv.style.cssText = `
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background-color: #f44336;
             color: white;
-            padding: 1.5rem 2rem;
+            padding: 1rem 1.5rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             z-index: 10000;
-            max-width: 400px;
-            animation: slideIn 0.3s ease;
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            animation: slideInDown 0.3s ease;
         `;
         messageDiv.textContent = message;
         document.body.appendChild(messageDiv);
 
         setTimeout(() => {
-            messageDiv.style.animation = 'slideOut 0.3s ease';
+            messageDiv.style.animation = 'slideOutUp 0.3s ease';
             setTimeout(() => messageDiv.remove(), 300);
         }, 5000);
     }
@@ -228,23 +240,23 @@ if (devisForm) {
     // Animations pour les messages
     const style = document.createElement('style');
 style.textContent = `
-    @keyframes slideIn {
+    @keyframes slideInDown {
         from {
-            transform: translateX(400px);
+            transform: translateX(-50%) translateY(-100px);
             opacity: 0;
         }
         to {
-            transform: translateX(0);
+            transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
     }
-    @keyframes slideOut {
+    @keyframes slideOutUp {
         from {
-            transform: translateX(0);
+            transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
         to {
-            transform: translateX(400px);
+            transform: translateX(-50%) translateY(-100px);
             opacity: 0;
         }
     }
